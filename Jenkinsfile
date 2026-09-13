@@ -23,6 +23,12 @@ pipeline {
         }
 
         stage('Install Dependencies') {
+            agent {
+                docker {
+                    image 'node:20-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'npm install'
             }
@@ -30,6 +36,12 @@ pipeline {
 
         // لو عندك اختبارات هتتفعل هنا (لو مفيش سكريبت test هيتخطى)
         stage('Test') {
+            agent {
+                docker {
+                    image 'node:20-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'npm test || echo "No tests configured, skipping..."'
             }
@@ -104,10 +116,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Pipeline نجح على البرانش: ${env.BRANCH_NAME}"
+            echo "✅ Pipeline succed: ${env.BRANCH_NAME}"
         }
         failure {
-            echo "❌ Pipeline فشل على البرانش: ${env.BRANCH_NAME}"
+            echo "❌ Pipeline fail: ${env.BRANCH_NAME}"
         }
         always {
             sh 'docker image prune -f || true'
