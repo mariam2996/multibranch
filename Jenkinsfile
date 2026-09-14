@@ -65,7 +65,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDS_ID) {
+                    docker.withRegistry('', DOCKER_CREDS_ID) {
                         dockerImage.push("${IMAGE_TAG}")
                         dockerImage.push("${env.BRANCH_NAME}-latest")
                     }
