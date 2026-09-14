@@ -8,7 +8,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_REGISTRY   = 'your-registry.example.com'      // غيّرها براجيستري بتاعك (Docker Hub / ECR / GCR ...)
+        DOCKER_REGISTRY   = 'mariamas32'                      // يوزرنيم Docker Hub
         IMAGE_NAME        = 'nodejs-docker-exercise'
         DOCKER_CREDS_ID   = 'docker-registry-creds'          // ID بتاع الـ credentials في Jenkins
         IMAGE_TAG         = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
@@ -116,10 +116,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Pipeline succed: ${env.BRANCH_NAME}"
+            echo "✅ Pipeline نجح على البرانش: ${env.BRANCH_NAME}"
         }
         failure {
-            echo "❌ Pipeline fail: ${env.BRANCH_NAME}"
+            echo "❌ Pipeline فشل على البرانش: ${env.BRANCH_NAME}"
         }
         always {
             sh 'docker image prune -f || true'
